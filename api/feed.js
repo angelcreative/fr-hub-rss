@@ -15,6 +15,7 @@ module.exports = async (req, res) => {
 
         res.status(200).json(posts);
     } catch (error) {
+        console.error('Error al obtener los datos:', error);
         res.status(500).send('Error al obtener los datos de LinkedIn');
     }
 };

@@ -2,9 +2,8 @@
   "name": "fr-hub-rss",
   "version": "1.0.0",
   "description": "RSS feed generator for LinkedIn newsletter",
-  "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "vercel dev"
   },
   "keywords": [],
   "author": "",
