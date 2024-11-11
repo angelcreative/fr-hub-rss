@@ -4,20 +4,25 @@ const cheerio = require('cheerio');
 module.exports = async (req, res) => {
     try {
         const response = await axios.get('https://www.linkedin.com/newsletters/persona-7102226323883888640/');
-        
-        // Imprime el HTML recibido
         const html = response.data;
-        console.log(html);
-
-        // Carga el HTML con cheerio
         const $ = cheerio.load(html);
 
         let posts = [];
-        $('.newsletter-post').each((index, element) => {
-            const title = $(element).find('.post-title').text();
-            const link = $(element).find('a').attr('href');
-            posts.push({ title, link });
+
+        // Selecciona el título del artículo
+        const title = $('.reader-article-header__title').text().trim();
+
+        // Selecciona el nombre del autor
+        const author = $('.reader-author-info__author-lockup--flex h2').text().trim();
+
+        // Selecciona el contenido principal del artículo
+        const content = [];
+        $('.reader-text-block__paragraph').each((i, el) => {
+            content.push($(el).text().trim());
         });
+
+        // Agrega el post a la lista de posts
+        posts.push({ title, author, content });
 
         res.status(200).json(posts);
     } catch (error) {
