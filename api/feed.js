@@ -4,7 +4,13 @@ const cheerio = require('cheerio');
 module.exports = async (req, res) => {
     try {
         const response = await axios.get('https://www.linkedin.com/newsletters/persona-7102226323883888640/');
-        const $ = cheerio.load(response.data);
+        
+        // Imprime el HTML recibido
+        const html = response.data;
+        console.log(html);
+
+        // Carga el HTML con cheerio
+        const $ = cheerio.load(html);
 
         let posts = [];
         $('.newsletter-post').each((index, element) => {
